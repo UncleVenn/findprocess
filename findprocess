@@ -3,7 +3,7 @@
  # @Email: 861182774@qq.com
  # @Date: 2019-08-27 17:09:44
  # @LastEditors: 张文Uncle
- # @LastEditTime: 2019-08-27 17:09:44
+ # @LastEditTime: 2019-09-05 11:13:19
  # @Descripttion: 
  ###
 #! /bin/sh
@@ -11,20 +11,20 @@ PORT=$1
 readonly PORT
 if [ $PORT ]
 then
-	STRS=$(netstat -anp | grep $PORT | awk '{printf("%s:%s-",$4,$7)}')
+    STRS=$(netstat -anp | grep $PORT | awk '{printf("%s:%s-",$4,$7)}')
     STR_ARR=${STRS//-/ }
     printf "%-10s %-10s %-10s %-10s\n" "PID" "IP" "PORT" "SERVERNAME"
     for STR in ${STR_ARR[@]}
-        do
-			TEM_STR=${STR////:}
-			TEM_STR=${TEM_STR//|/:}
-            IFS=":"
-            TEM_ARR=($TEM_STR)
-            if [[ ${TEM_ARR[1]} == $PORT ]]
-            then
-                printf "%-10s %-10s %-10s %-10s\n" ${TEM_ARR[2]} ${TEM_ARR[0]} ${TEM_ARR[1]} ${TEM_ARR[3]}
-            fi
-        done
+    do
+    TEM_STR=${STR////:}
+        TEM_STR=${TEM_STR//|/:}
+        IFS=":"
+        TEM_ARR=($TEM_STR)
+        if [[ ${TEM_ARR[1]} == $PORT ]]
+        then
+            printf "%-10s %-10s %-10s %-10s\n" ${TEM_ARR[2]} ${TEM_ARR[0]} ${TEM_ARR[1]} ${TEM_ARR[3]}
+        fi
+    done
 else
     echo "please bring parameter such as 'findproess 8080'"
 fi
